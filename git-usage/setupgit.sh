@@ -35,8 +35,16 @@ gen_sshkeys_for_github()
 	ssh-keygen -t rsa -C "$EMAIL" -f $github_id
 
 	echo "setting up ssh config..."
+	# if Hostname is not supported, then Host must specify as detail as possible
 	echo "Host github.com" >> ~/.ssh/config
+	echo -e "\tUser git" >> ~/.ssh/config
+	# Hostname keyword may be not supported
+	# Hostname github.com
 	echo -e "\tIdentityFile $github_id" >> ~/.ssh/config
+	#XXX mode must be set as 600, or you'll get error:
+	#Bad owner or permissions on /home/user/.ssh/config
+	#mode of /etc/ssh/ssh_config is 644
+	chmod 600 ~/.ssh/config
 
 	echo "keygen done, please paste your public id to github now..."
 }
