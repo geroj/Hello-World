@@ -33,6 +33,7 @@ gen_sshkeys_for_github()
     echo "generating ssh keys for github now..."
     echo "NEED you to type password manually!"
     ssh-keygen -t rsa -C "$EMAIL" -f $github_id
+    chown 600 $github_id
 
     echo "setting up ssh config..."
     # if Hostname is not supported, then Host must specify as detail as possible
